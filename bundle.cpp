@@ -13,8 +13,11 @@ bool ZAppBundle::FindAppFolder(const string &strFolder, string &strAppFolder)
 {
 	if (IsPathSuffix(strFolder, ".app"))
 	{
-		strAppFolder = strFolder;
-		return true;
+		if (IsFileExists((strFolder + "/Info.plist").c_str()))
+		{
+			strAppFolder = strFolder;
+			return true;
+		}
 	}
 
 	DIR *dir = opendir(strFolder.c_str());
